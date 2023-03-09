@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: com.bug
+testFramework: spock
+sourceLanguage: kotlin
+buildTool: gradle
+features: [annotation-api, app-name, data, data-mongodb, gradle, http-client, jackson-databind, kotlin, kotlin-application, kotlin-build, logback, micronaut-build, mongo-reactive, netty-server, readme, shade, spock, test-resources, yaml]

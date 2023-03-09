@@ -1,0 +1,14 @@
+micronaut:
+  application:
+    name: mongolistquery
+netty:
+  default:
+    allocator:
+      max-order: 3
+
+mongodb:
+  uri: mongodb://localhost:27017/list_bug?authSource=admin
+
+logger:
+  levels:
+    org.mongodb.driver: TRACE

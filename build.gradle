@@ -1,0 +1,74 @@
+plugins {
+    id("org.jetbrains.kotlin.jvm") version "$kotlinVersion"
+    id("org.jetbrains.kotlin.kapt") version "$kotlinVersion"
+    id("org.jetbrains.kotlin.plugin.allopen") version "$kotlinVersion"
+    id("groovy") 
+    id("io.micronaut.application") version "$micronautPluginVersion"
+    id("io.micronaut.test-resources") version "$micronautPluginVersion"
+}
+
+version = "0.1"
+group = "com.bug"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    kapt("io.micronaut:micronaut-http-validation")
+    kapt("io.micronaut.data:micronaut-data-document-processor")
+    kapt("io.micronaut.serde:micronaut-serde-processor")
+
+    implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
+    implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
+
+    implementation("io.micronaut:micronaut-validation")
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut:micronaut-jackson-databind")
+    implementation("io.micronaut.data:micronaut-data-mongodb")
+    implementation("io.micronaut.mongodb:micronaut-mongo-reactive")
+    implementation("jakarta.annotation:jakarta.annotation-api")
+
+    implementation("org.litote.kmongo:kmongo-coroutine:$kmongoVersion")
+    implementation("org.litote.kmongo:kmongo:$kmongoVersion")
+
+    runtimeOnly("ch.qos.logback:logback-classic")
+    runtimeOnly("org.mongodb:mongodb-driver-sync")
+
+    runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+}
+
+
+application {
+    mainClass.set("com.bug.ApplicationKt")
+}
+java {
+    sourceCompatibility = JavaVersion.toVersion("17")
+}
+
+tasks {
+    compileKotlin {
+        kotlinOptions {
+            jvmTarget = "17"
+        }
+    }
+    compileTestKotlin {
+        kotlinOptions {
+            jvmTarget = "17"
+        }
+    }
+}
+graalvmNative.toolchainDetection = false
+micronaut {
+    runtime("netty")
+    testRuntime("spock2")
+    processing {
+        incremental(true)
+        annotations("com.bug.*")
+    }
+}
+
+
+
